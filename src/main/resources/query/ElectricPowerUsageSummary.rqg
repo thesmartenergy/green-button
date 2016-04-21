@@ -1,0 +1,132 @@
+# Copyright 2016 ITEA 12004 SEAS Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, 
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX seas-greenbutton: <http://w3id.org/seas/greenbutton#>
+PREFIX rqg-ite: <http://w3id.org/sparql-generate/ite/>
+PREFIX rqg-fn: <http://w3id.org/sparql-generate/fn/>
+
+GENERATE
+{
+	<> a foaf:Document ;
+	dc:created ?published ;
+	dc:modified ?updated ;
+	dc:primaryTopic ?id_uri .
+
+	?up seas-greenbutton:ElectricPowerUsageSummary ?id_uri .
+
+	?id_uri a seas-greenbutton:ElectricPowerUsageSummary ;
+	owl:sameAs ?self ;
+
+	WHERE 
+	{
+		# Get atom variables
+		BIND(rqg-fn:XPath(?message, "/entry/id[1]") AS ?id)
+		BIND(rqg-fn:XPath(?message, "/entry/link[@rel=\"self\"]") AS ?self)
+		BIND(rqg-fn:XPath(?message, "/entry/link[@rel=\"up\"]") AS ?up)
+		BIND(rqg-fn:XPath(?message, "/entry/title[1]") AS ?title)
+		BIND(rqg-fn:XPath(?message, "/entry/published[1]") AS ?published)
+		BIND(rqg-fn:XPath(?message, "/entry/updated[1]") AS ?updated)
+
+		# Map Atom variables with seas ontology
+		BIND(URI(CONCAT("urn:uuid:", ?id)) AS ?id_uri)
+
+		# Get ElectricPowerUsageSummary variables
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:billingPeriod/espi:start") AS ?billingPeriod_start_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:billingPeriod/espi:duration") AS ?billingPeriod_duration_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:billLastPeriod") AS ?billLastPeriod_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:billToDate") AS ?billToDate_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:costAdditionalLastPeriod") AS ?costAdditionalLastPeriod_gb)
+
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:costAdditionalDetailLastPeriod/espi:amount") AS ?costAdditionalDetailLastPeriod_amount_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:costAdditionalDetailLastPeriod/espi:rounding") AS ?costAdditionalDetailLastPeriod_rounding_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:costAdditionalDetailLastPeriod/espi:dateTime") AS ?costAdditionalDetailLastPeriod_dateTime_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:costAdditionalDetailLastPeriod/espi:note") AS ?costAdditionalDetailLastPeriod_note_gb)
+
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:costAdditionalDetailLastPeriod/espi:measurement/espi:powerOfTenMultiplier") AS ?costAdditionalDetailLastPeriod_measurement_powerOfTenMultiplier_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:costAdditionalDetailLastPeriod/espi:measurement/espi:timeStamp") AS ?costAdditionalDetailLastPeriod_measurement_timeStamp_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:costAdditionalDetailLastPeriod/espi:measurement/espi:uom") AS ?costAdditionalDetailLastPeriod_measurement_uom_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:costAdditionalDetailLastPeriod/espi:measurement/espi:value") AS ?costAdditionalDetailLastPeriod_measurement_value_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:costAdditionalDetailLastPeriod/espi:measurement/espi:readingTypeRef") AS ?costAdditionalDetailLastPeriod_measurement_readingTypeRef_gb)
+
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currency") AS ?currency_gb)
+
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:overallConsumptionLastPeriod/espi:powerOfTenMultiplier") AS ?overallConsumptionLastPeriod_powerOfTenMultiplier_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:overallConsumptionLastPeriod/espi:timeStamp") AS ?overallConsumptionLastPeriod_timeStamp_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:overallConsumptionLastPeriod/espi:uom") AS ?overallConsumptionLastPeriod_uom_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:overallConsumptionLastPeriod/espi:value") AS ?overallConsumptionLastPeriod_value_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:overallConsumptionLastPeriod/espi:readingTypeRef") AS ?overallConsumptionLastPeriod_readingTypeRef_gb)
+
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayLastYearNetConsumption/espi:powerOfTenMultiplier") AS ?currentDayLastYearNetConsumption_powerOfTenMultiplier_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayLastYearNetConsumption/espi:timeStamp") AS ?currentDayLastYearNetConsumption_timeStamp_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayLastYearNetConsumption/espi:uom") AS ?currentDayLastYearNetConsumption_uom_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayLastYearNetConsumption/espi:value") AS ?currentDayLastYearNetConsumption_value_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayLastYearNetConsumption/espi:readingTypeRef") AS ?currentDayLastYearNetConsumption_readingTypeRef_gb)
+
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayNetConsumption/espi:powerOfTenMultiplier") AS ?currentDayNetConsumption_powerOfTenMultiplier_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayNetConsumption/espi:timeStamp") AS ?currentDayNetConsumption_timeStamp_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayNetConsumption/espi:uom") AS ?currentDayNetConsumption_uom_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayNetConsumption/espi:value") AS ?currentDayNetConsumption_value_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayNetConsumption/espi:readingTypeRef") AS ?currentDayNetConsumption_readingTypeRef_gb)
+
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayOverallConsumption/espi:powerOfTenMultiplier") AS ?currentDayOverallConsumption_powerOfTenMultiplier_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayOverallConsumption/espi:timeStamp") AS ?currentDayOverallConsumption_timeStamp_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayOverallConsumption/espi:uom") AS ?currentDayOverallConsumption_uom_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayOverallConsumption/espi:value") AS ?currentDayOverallConsumption_value_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:currentDayOverallConsumption/espi:readingTypeRef") AS ?currentDayOverallConsumption_readingTypeRef_gb)
+
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:peakDemand/espi:powerOfTenMultiplier") AS ?peakDemand_powerOfTenMultiplier_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:peakDemand/espi:timeStamp") AS ?peakDemand_timeStamp_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:peakDemand/espi:uom") AS ?peakDemand_uom_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:peakDemand/espi:value") AS ?peakDemand_value_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:peakDemand/espi:readingTypeRef") AS ?peakDemand_readingTypeRef_gb)
+
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayLastYearOverallConsumption/espi:powerOfTenMultiplier") AS ?previousDayLastYearOverallConsumption_powerOfTenMultiplier_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayLastYearOverallConsumption/espi:timeStamp") AS ?previousDayLastYearOverallConsumption_timeStamp_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayLastYearOverallConsumption/espi:uom") AS ?previousDayLastYearOverallConsumption_uom_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayLastYearOverallConsumption/espi:value") AS ?previousDayLastYearOverallConsumption_value_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayLastYearOverallConsumption/espi:readingTypeRef") AS ?previousDayLastYearOverallConsumption_readingTypeRef_gb)
+
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayNetConsumption/espi:powerOfTenMultiplier") AS ?previousDayNetConsumption_powerOfTenMultiplier_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayNetConsumption/espi:timeStamp") AS ?previousDayNetConsumption_timeStamp_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayNetConsumption/espi:uom") AS ?previousDayNetConsumption_uom_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayNetConsumption/espi:value") AS ?previousDayNetConsumption_value_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayNetConsumption/espi:readingTypeRef") AS ?previousDayNetConsumption_readingTypeRef_gb)
+
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayOverallConsumption/espi:powerOfTenMultiplier") AS ?previousDayOverallConsumption_powerOfTenMultiplier_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayOverallConsumption/espi:timeStamp") AS ?previousDayOverallConsumption_timeStamp_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayOverallConsumption/espi:uom") AS ?previousDayOverallConsumption_uom_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayOverallConsumption/espi:value") AS ?previousDayOverallConsumption_value_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:previousDayOverallConsumption/espi:readingTypeRef") AS ?previousDayOverallConsumption_readingTypeRef_gb)
+
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:qualityOfReading") AS ?qualityOfReading_gb)
+
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:ratchetDemand/espi:powerOfTenMultiplier") AS ?ratchetDemand_powerOfTenMultiplier_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:ratchetDemand/espi:timeStamp") AS ?ratchetDemand_timeStamp_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:ratchetDemand/espi:uom") AS ?ratchetDemand_uom_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:ratchetDemand/espi:value") AS ?ratchetDemand_value_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:ratchetDemand/espi:readingTypeRef") AS ?ratchetDemand_readingTypeRef_gb)
+
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:ratchetDemandPeriod/espi:start") AS ?ratchetDemand_start_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:ratchetDemandPeriod/espi:duration") AS ?ratchetDemand_duration_gb)
+		
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:statusTimeStamp") AS ?statusTimeStamp_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerUsageSummary/espi:commodity") AS ?commodity_gb)
+
+		# Map ElectricPowerUsageSummary variables with seas ontology
+	}
+}

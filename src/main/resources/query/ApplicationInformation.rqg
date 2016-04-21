@@ -1,0 +1,88 @@
+# Copyright 2016 ITEA 12004 SEAS Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, 
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX seas-greenbutton: <http://w3id.org/seas/greenbutton#>
+PREFIX rqg-ite: <http://w3id.org/sparql-generate/ite/>
+PREFIX rqg-fn: <http://w3id.org/sparql-generate/fn/>
+
+GENERATE
+{
+	<> a foaf:Document ;
+	dc:created ?published ;
+	dc:modified ?updated ;
+	dc:primaryTopic ?id_uri .
+
+	?up seas-greenbutton:ApplicationInformation ?id_uri .
+
+	?id_uri a seas-greenbutton:ApplicationInformation ;
+	owl:sameAs ?self ;
+
+	WHERE 
+	{
+		# Get atom variables
+		BIND(rqg-fn:XPath(?message, "/entry/id[1]") AS ?id)
+		BIND(rqg-fn:XPath(?message, "/entry/link[@rel=\"self\"]") AS ?self)
+		BIND(rqg-fn:XPath(?message, "/entry/link[@rel=\"up\"]") AS ?up)
+		BIND(rqg-fn:XPath(?message, "/entry/title[1]") AS ?title)
+		BIND(rqg-fn:XPath(?message, "/entry/published[1]") AS ?published)
+		BIND(rqg-fn:XPath(?message, "/entry/updated[1]") AS ?updated)
+
+		# Map Atom variables with seas ontology
+		BIND(URI(CONCAT("urn:uuid:", ?id)) AS ?id_uri)
+
+		# Get ApplicationInformation variables
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:dataCustodianId") AS ?dataCustodianId_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:dataCustodianApplicationStatus") AS ?dataCustodianApplicationStatus_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:thirdPartyApplicationDescription") AS ?thirdPartyApplicationDescription_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:thirdPartyApplicationStatus") AS ?thirdPartyApplicationStatus_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:thirdPartyApplicationType") AS ?thirdPartyApplicationType_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:thirdPartyApplicationUse") AS ?thirdPartyApplicationUse_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:thirdPartyPhone") AS ?thirdPartyPhone_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:authorizationServerUri") AS ?authorizationServerUri_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:thirdPartyNotifyUri") AS ?thirdPartyNotifyUri_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:authorizationServerAuthorizationEndpoint") AS ?authorizationServerAuthorizationEndpoint_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:authorizationServerRegistrationEndpoint") AS ?authorizationServerRegistrationEndpoint_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:authorizationServerTokenEndpoint") AS ?authorizationServerTokenEndpoint_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:dataCustodianBulkRequestURI") AS ?dataCustodianBulkRequestURI_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:dataCustodianResourceEndpoint") AS ?dataCustodianResourceEndpoint_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:thirdPartyScopeSelectionScreenURI") AS ?thirdPartyScopeSelectionScreenURI_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:thirdPartyUserPortalScreenURI") AS ?thirdPartyUserPortalScreenURI_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:client_secret") AS ?client_secret_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:logo_uri") AS ?logo_uri_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:client_name") AS ?client_name_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:client_uri") AS ?client_uri_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:redirect_uri") AS ?redirect_uri_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:client_id") AS ?client_id_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:tos_uri") AS ?tos_uri_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:policy_uri") AS ?policy_uri_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:software_id") AS ?software_id_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:software_version") AS ?software_version_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:client_id_issued_at") AS ?client_id_issued_at_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:client_secret_expires_at") AS ?client_secret_expires_at_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:contacts") AS ?contacts_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:token_endpoint_auth_method") AS ?token_endpoint_auth_method_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:scope") AS ?scoped_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:grant_types") AS ?grant_types_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:response_types") AS ?response_types_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:registration_client_uri") AS ?registration_client_uri_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:registration_access_token") AS ?registration_access_token_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ApplicationInformation/espi:dataCustodianScopeSelectionScreenURI") AS ?dataCustodianScopeSelectionScreenURI_gb)
+
+		# Map ApplicationInformation variables with seas ontology
+	}
+}

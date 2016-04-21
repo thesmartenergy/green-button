@@ -1,0 +1,67 @@
+# Copyright 2016 ITEA 12004 SEAS Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, 
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX seas-greenbutton: <http://w3id.org/seas/greenbutton#>
+PREFIX rqg-ite: <http://w3id.org/sparql-generate/ite/>
+PREFIX rqg-fn: <http://w3id.org/sparql-generate/fn/>
+
+GENERATE
+{
+	<> a foaf:Document ;
+	dc:created ?published ;
+	dc:modified ?updated ;
+	dc:primaryTopic ?id_uri .
+
+	?up seas-greenbutton:ElectricPowerQualitySummary ?id_uri .
+
+	?id_uri a seas-greenbutton:ElectricPowerQualitySummary ;
+	owl:sameAs ?self ;
+
+	WHERE 
+	{
+		# Get atom variables
+		BIND(rqg-fn:XPath(?message, "/entry/id[1]") AS ?id)
+		BIND(rqg-fn:XPath(?message, "/entry/link[@rel=\"self\"]") AS ?self)
+		BIND(rqg-fn:XPath(?message, "/entry/link[@rel=\"up\"]") AS ?up)
+		BIND(rqg-fn:XPath(?message, "/entry/title[1]") AS ?title)
+		BIND(rqg-fn:XPath(?message, "/entry/published[1]") AS ?published)
+		BIND(rqg-fn:XPath(?message, "/entry/updated[1]") AS ?updated)
+
+		# Map Atom variables with seas ontology
+		BIND(URI(CONCAT("urn:uuid:", ?id)) AS ?id_uri)
+
+		# Get ElectricPowerQualitySummary variables
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:flickerPlt") AS ?flickerPlt_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:flickerPst") AS ?flickerPst_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:harmonicVoltage") AS ?harmonicVoltage_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:longInterruptions") AS ?longInterruptions_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:mainsVoltage") AS ?mainsVoltage_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:measurementProtocol") AS ?measurementProtocol_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:powerFrequency") AS ?powerFrequency_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:rapidVoltageChanges") AS ?rapidVoltageChanges_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:shortInterruptions") AS ?shortInterruptions_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:summaryInterval/espi:start") AS ?summaryInterval_start_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:summaryInterval/espi:duration") AS ?summaryInterval_duration_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:supplyVoltageDips") AS ?supplyVoltageDips_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:supplyVoltageImbalance") AS ?supplyVoltageImbalance_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:supplyVoltageVariations") AS ?supplyVoltageVariations_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ElectricPowerQualitySummary/espi:tempOvervoltage") AS ?tempOvervoltage_gb)
+
+		# Map ElectricPowerQualitySummary variables with seas ontology
+	}
+}

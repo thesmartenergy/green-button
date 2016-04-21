@@ -1,0 +1,70 @@
+# Copyright 2016 ITEA 12004 SEAS Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, 
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX seas-greenbutton: <http://w3id.org/seas/greenbutton#>
+PREFIX rqg-ite: <http://w3id.org/sparql-generate/ite/>
+PREFIX rqg-fn: <http://w3id.org/sparql-generate/fn/>
+
+GENERATE
+{
+	<> a foaf:Document ;
+	dc:created ?published ;
+	dc:modified ?updated ;
+	dc:primaryTopic ?id_uri .
+
+	?up seas-greenbutton:ReadingType ?id_uri .
+
+	?id_uri a seas-greenbutton:ReadingType ;
+	owl:sameAs ?self ;
+
+	WHERE 
+	{
+		# Get atom variables
+		BIND(rqg-fn:XPath(?message, "/entry/id[1]") AS ?id)
+		BIND(rqg-fn:XPath(?message, "/entry/link[@rel=\"self\"]") AS ?self)
+		BIND(rqg-fn:XPath(?message, "/entry/link[@rel=\"up\"]") AS ?up)
+		BIND(rqg-fn:XPath(?message, "/entry/title[1]") AS ?title)
+		BIND(rqg-fn:XPath(?message, "/entry/published[1]") AS ?published)
+		BIND(rqg-fn:XPath(?message, "/entry/updated[1]") AS ?updated)
+
+		# Map Atom variables with seas ontology
+		BIND(URI(CONCAT("urn:uuid:", ?id)) AS ?id_uri)
+
+		# Get ReadingType variables
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:accumulationBehaviour" ) AS ?accumulationBehaviour_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:commodity" ) AS ?commodity_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:consumptionTier" ) AS ?consumptionTier_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:currency" ) AS ?currency_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:dataQualifier" ) AS ?dataQualifier_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:defaultQuality" ) AS ?defaultQuality_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:flowDirection" ) AS ?flowDirection_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:intervalLength" ) AS ?intervalLength_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:kind" ) AS ?kind_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:phase" ) AS ?phase_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:powerOfTenMultiplier" ) AS ?powerOfTenMultiplier_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:timeAttribute" ) AS ?timeAttribute_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:tou" ) AS ?tou_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:uom" ) AS ?uom_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:cpp" ) AS ?cpp_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:interharmonic" ) AS ?interharmonic_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:measuringPeriod" ) AS ?measuringPeriod_gb)
+		BIND(rqg-fn:XPath(?message, "/entry/content[1]/espi:ReadingType/espi:argument" ) AS ?argument_gb)
+
+		# Map ReadingType variables with seas ontology
+	}
+}
