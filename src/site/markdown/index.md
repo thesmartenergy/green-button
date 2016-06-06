@@ -16,7 +16,7 @@ This is a very simple example, it requests all present usagePoints on a given da
 GET http://127.0.0.1:8080/GreenButton/UsagePoint
 ```
 
-with thede tow header fields:
+with these two header fields:
 
 ```
 Content-Type:application/xml
