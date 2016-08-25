@@ -1,0 +1,60 @@
+# Copyright 2016 ITEA 12004 SEAS Project.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rp: <http://w3id.org/seas/rp/>.
+@base <http://w3id.org/seas/green-button/>.
+
+<query/ApplicationInformation> a rp:Resource ; rp:fileName "ApplicationInformation.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/ApplicationInformation.rqg> a rp:Resource ; rp:fileName "ApplicationInformation.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/ApplicationInformations> a rp:Resource ; rp:fileName "ApplicationInformations.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/ApplicationInformations.rqg> a rp:Resource ; rp:fileName "ApplicationInformations.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/Authorization> a rp:Resource ; rp:fileName "Authorization.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/Authorization.rqg> a rp:Resource ; rp:fileName "Authorization.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/Authorizations> a rp:Resource ; rp:fileName "Authorizations.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/Authorizations.rqg> a rp:Resource ; rp:fileName "Authorizations.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/Batch> a rp:Resource ; rp:fileName "Batch.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/Batch.rqg> a rp:Resource ; rp:fileName "Batch.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/Batchs> a rp:Resource ; rp:fileName "Batchs.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/Batchs.rqg> a rp:Resource ; rp:fileName "Batchs.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/ElectricPowerQualitySummaries> a rp:Resource ; rp:fileName "ElectricPowerQualitySummaries.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/ElectricPowerQualitySummaries.rqg> a rp:Resource ; rp:fileName "ElectricPowerQualitySummaries.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/ElectricPowerQualitySummary> a rp:Resource ; rp:fileName "ElectricPowerQualitySummary.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/ElectricPowerQualitySummary.rqg> a rp:Resource ; rp:fileName "ElectricPowerQualitySummary.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/ElectricPowerUsageSummaries> a rp:Resource ; rp:fileName "ElectricPowerUsageSummaries.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/ElectricPowerUsageSummaries.rqg> a rp:Resource ; rp:fileName "ElectricPowerUsageSummaries.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/ElectricPowerUsageSummary> a rp:Resource ; rp:fileName "ElectricPowerUsageSummary.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/ElectricPowerUsageSummary.rqg> a rp:Resource ; rp:fileName "ElectricPowerUsageSummary.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/IntervalBlock> a rp:Resource ; rp:fileName "IntervalBlock.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/IntervalBlock.rqg> a rp:Resource ; rp:fileName "IntervalBlock.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/IntervalBlocks> a rp:Resource ; rp:fileName "IntervalBlocks.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/IntervalBlocks.rqg> a rp:Resource ; rp:fileName "IntervalBlocks.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/MeterReading> a rp:Resource ; rp:fileName "MeterReading.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/MeterReading.rqg> a rp:Resource ; rp:fileName "MeterReading.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/MeterReadings> a rp:Resource ; rp:fileName "MeterReadings.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/MeterReadings.rqg> a rp:Resource ; rp:fileName "MeterReadings.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/ReadingType> a rp:Resource ; rp:fileName "ReadingType.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/ReadingType.rqg> a rp:Resource ; rp:fileName "ReadingType.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/ReadingTypes> a rp:Resource ; rp:fileName "ReadingTypes.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/ReadingTypes.rqg> a rp:Resource ; rp:fileName "ReadingTypes.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/ServiceStatus> a rp:Resource ; rp:fileName "ServiceStatus.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/ServiceStatus.rqg> a rp:Resource ; rp:fileName "ServiceStatus.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/UsageLocalTimeParameter> a rp:Resource ; rp:fileName "UsageLocalTimeParameter.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/UsageLocalTimeParameter.rqg> a rp:Resource ; rp:fileName "UsageLocalTimeParameter.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/UsageLocalTimeParameters> a rp:Resource ; rp:fileName "UsageLocalTimeParameters.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/UsageLocalTimeParameters.rqg> a rp:Resource ; rp:fileName "UsageLocalTimeParameters.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/UsagePoint> a rp:Resource ; rp:fileName "UsagePoint.rqg" ;  rp:mediaType "application/vnd.sparql-generate" .
+<query/UsagePoint.rqg> a rp:Resource ; rp:fileName "UsagePoint.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/UsagePoints> a rp:Resource ; rp:fileName "UsagePoints.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+<query/UsagePoints.rqg> a rp:Resource ; rp:fileName "UsagePoints.rqg" ; rp:mediaType "application/vnd.sparql-generate" .
+

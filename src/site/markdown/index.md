@@ -13,25 +13,26 @@ This is a very simple example, it requests all present usagePoints on a given da
 **Client request:**
 
 ```
-GET http://127.0.0.1:8080/GreenButton/UsagePoint
+GET http://w3id.org/seas/green-button/query/UsagePoints
 ```
 
 with these two header fields:
 
 ```
 Content-Type:application/xml
-Accept:application/sparql-generate
 ```
 
 **Server answer:**
 
-Header fields:
+The following header field tell the client how to lift the response to RDF:
+
 ```
-Link:<http://127.0.0.1:8080/GreenButton/query/UsagePoints>; rel="spargl-query"; var="message"
+Link:<http://w3id.org/seas/green-button/query/UsagePoints>; rel="spargl-query"; var="message"
 ```
 
 Body:
-```
+
+```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <atom:feed xmlns:atom="http://www.w3.org/2005/Atom" xmlns:espi="http://naesb.org/espi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2005/Atom ../xsd/oadr_atom.xsd">
   <atom:entry>

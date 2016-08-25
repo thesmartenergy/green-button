@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.thesmartenergy.gb.query;
+package com.github.thesmartenergy.gb.entities;
 
-import java.util.logging.Logger;
-import javax.ws.rs.ApplicationPath;
-import org.glassfish.jersey.server.ResourceConfig;
+import com.github.thesmartenergy.rp.BaseURI;
+import javax.enterprise.inject.Produces;
 
 /**
  *
- * @author maxime.lefrancois
+ * @author Maxime Lefrançois <maxime.lefrancois at emse.fr>
  */
-@ApplicationPath("query")
-public class JerseyApp extends ResourceConfig {
+public class App {
 
-    private static final Logger LOG = Logger.getLogger(JerseyApp.class.getSimpleName());
-
-    public JerseyApp() {
-        packages("com.github.thesmartenergy.gb.query");
+    @Produces
+    @BaseURI
+    public String getBase() {
+        return "http://w3id.org/seas/green-button/";
     }
 }
